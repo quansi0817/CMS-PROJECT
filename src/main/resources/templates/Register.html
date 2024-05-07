@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login Page!</title>
+    <script src="../static/js/script.js" th:src="@{/js/script.js}"></script>
+    <link rel="stylesheet" type="text/css" media="all" href="../static/css/mycss.css" th:href="@{/css/mycss.css}" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        section {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+            width: 400px;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        input[type=email], input[type=password] {
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+        input[type=submit] {
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        input[type=submit]:hover {
+            background-color: #0056b3;
+        }
+        .error {
+            color: red;
+            text-align: center;
+        }
+
+    </style>
+</head>
+
+<body>
+    <section>
+        <h1>Register Here!</h1>
+        <div id="error" class="error"></div>
+        
+        <!-- Form for Registration -->
+        <form name="form" action="#" th:action="@{/register}" method="post" onsubmit="return verify()"> 
+            <label>Email:</label>
+            <input type="email" name="username" />
+            
+            <label>Password:</label>
+            <input type="password" name="password" />
+            
+            <label>Verify Password:</label>
+            <input type="password" name="verifyPassword" />
+            
+            <input type="submit" value="Register">
+        </form>
+    </section>
+</body>
+</html>

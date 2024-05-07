@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add Lead</title>
+  <link rel="stylesheet" type="text/css" th:href="@{/css/mycss.css}" />
+    <form action="/logout" method="post">
+    <input type="submit" value="Logout">
+    <style>
+        .container {
+            width: 30%;
+            margin: auto;
+            padding: 20px;
+            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+            background-color: #f9f9f9;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="text"], input[type="number"], input[type="email"], select {
+            width: 60%;
+            padding: 8px;
+            margin: 6px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 12pt;
+        }
+        button {
+            width: 30%;
+            background-color: #000000;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14pt;
+        }
+        button:hover {
+            background-color: #555555;
+        }
+    </style></form>
+
+
+</head>
+
+<body>
+    <div class="container">
+        <h1>Add New Lead</h1>
+        <form th:action="@{/secure/leadsView/addEditLeads}" th:object="${leads}" action="#" method="post">
+            <div class="form-group">
+                <label for="customerId">Customer ID:</label>
+<input type="text" id="customerId" name="customerId" required />
+</div>
+
+<div class="form-group">
+
+<span id="customerName">Enter Customer ID</span>
+            </div>
+            
+            <div class="form-group">
+                <label for="projectName">Project Name:</label>
+                <input type="text" id="projectName" th:field="*{projectName}" required />
+            </div>
+            <div class="form-group">
+                <label for="products">Products:</label>
+                <input type="text" id="products" th:field="*{products}" />
+            </div>
+            <div class="form-group">
+                <label for="unitPrice">Unit Price:</label>
+                <input type="number" id="unitPrice" th:field="*{unitPrice}" />
+            </div>
+            <div class="form-group">
+                <label for="quantity">Quantity:</label>
+                <input type="number" id="quantity" th:field="*{quantity}" />
+            </div>
+    <div class="form-group">
+        <label for="currentStage">Current Stage:</label>
+        <select id="currentStage" name="currentStage">
+            <option value="New Lead" selected>New Lead</option>
+            <option value="Proposal">Proposal</option>
+            <option value="Won">Won</option>
+            <option value="Lost">Lost</option>
+        </select>
+    </div>
+
+    
+    				<input type="hidden" name="leadsId" value="0" />
+                    <script>
+                        window.onload = function() {
+                            var stageNameToIdMap = {
+                                'New Lead': 1,
+                                'Proposal': 2,
+                                'Won': 3,
+                                'Lost': 4
+                            };
+                    
+                            var currentStageSelect = document.getElementById('currentStage');
+                            var selectedStageName = currentStageSelect.value;
+                            var selectedStageId = stageNameToIdMap[selectedStageName] || 1; // Default to 1 if no value is selected
+                            document.getElementById('currentStageId').value = selectedStageId;
+                    
+                            currentStageSelect.addEventListener('change', function() {
+                                selectedStageName = this.value;
+                                selectedStageId = stageNameToIdMap[selectedStageName];
+                                document.getElementById('currentStageId').value = selectedStageId;
+                            });
+                        };
+                    </script>
+                    <input type="hidden" id="currentStageId" name="currentStageId" th:value="${leads.currentStageId}" />
+                    
+                        <div class="form-group">
+
+                <button type="submit">Save Changes</button>
+            </div>
+        </form>
+    </div>
+    
+<script>
+function fetchCustomerName() {
+    var customerId = document.getElementById('customerId').value;
+    console.log('Fetching name for customer ID:', customerId); // Debug log
+
+    fetch('/secure/api/getCustomerName/' + customerId)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Received data:', data); // Debug log
+            if (data && data.name) {
+                document.getElementById('customerName').textContent = data.name;
+            } else {
+                document.getElementById('customerName').textContent = 'Non-existent Customer ID';
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            document.getElementById('customerName').textContent = 'Non-existent Customer ID';
+        });
+}
+
+document.getElementById('customerId').addEventListener('input', fetchCustomerName);
+</script>
+</body>
+</html>

@@ -1,0 +1,140 @@
+/* Style for the overall body */
+/* Leads Dashboard 页面的表格样式 */
+#leadsTable {
+    width: 100%;
+    border-radius: 8px;
+    margin-top: 20px;
+    border-collapse: collapse;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow for table */
+}
+
+#leadsTable th, #leadsTable td {
+    text-align: left;
+    padding: 8px 15px;
+    border-bottom: 1px solid #ddd; /* Light border for table rows */
+}
+
+#leadsTable th {
+    background-color: #f8f9fa; /* Light grey background for table headers */
+    color: #333; /* Dark grey text color for headers */
+    font-weight: bold;
+}
+
+#leadsTable tr:nth-child(even) {
+    background-color: #fff; /* White background for even rows */
+}
+
+#leadsTable tr:nth-child(odd) {
+    background-color: #f2f2f2; /* Light grey background for odd rows */
+}
+
+#leadsTable tr:hover {
+    background-color: #f8f9fa; /* Light grey background on row hover */
+}
+
+
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    background-image: url('/images/bg.png'); /* Set the background image */
+    background-size: cover; /* Cover the entire viewport */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-attachment: fixed; /* Fix the background image */
+    margin: 0;
+    padding: 20px;
+
+}
+
+/* Style for the container */
+.container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Dashboard Data Display Styling */
+.dashboard-data {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+
+.data-block {
+    background-color: #007bff; /* Blue background for consistency */
+    color: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    min-width: 0px;
+    text-align: center;
+}
+
+.data-block span {
+    display: block;
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+
+/* Style for the main heading */
+h1 {
+    text-align: center;
+}
+
+/* Table Styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #f0f0f0;
+}
+
+/* Logout Button Style */
+form {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+input[type="submit"] {
+    padding: 5px 15px;
+    background-color: #007bff; /* Blue button for consistency */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #0056B3;
+}
+input, button {
+    margin-bottom: 5px; /* Adds space below each input and button */
+    margin-top: 5px; /* Adds space below each input and button */
+
+}
+
+/* Add New Lead Link Style */
+a {
+    display: inline-block;
+    margin-bottom: 20px;
+    background-color: #007bff; /* Blue background for consistency */
+    color: white;
+    padding: 5px 15px;
+    text-decoration: none;
+    border-radius: 4px;
+}
+
+a:hover {
+    background-color: #0056B3;
+}

@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>Leads Dashboard</title>
+    <link rel="stylesheet" type="text/css" media="all" href="../static/css/mycss.css" th:href="@{/css/mycss.css}" />
+    <style>
+		body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    padding: 20px;
+}
+
+.container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+        .dashboard-frame {
+   display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px; /* Spacing between blocks */
+            padding: 20px;
+            background-color: #fff; /* Assuming a white background */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow */
+        }
+
+.dashboard-data {
+    display: flex;
+    justify-content: space-around;
+}
+
+        .data-block {
+            background-color: #f8f9fa; /* Light background color */
+            border-radius: 8px; /* Rounded corners */
+            padding: 20px;
+            width: 20%; /* Adjusted width for a four-column layout */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Block shadow */
+            color: #333; /* Dark text for better readability */
+        }
+
+        .data-block span.title {
+          font-size: 1rem; /* Smaller font size for title */
+            margin-bottom: .5rem; /* Space below title */
+            color: #6c757d; /* Lighter text color */
+        }
+
+        .data-block span.value {
+          font-size: 2.5rem; /* Larger font size for value */
+            font-weight: bold;
+            color: #000; /* Darker text color for value */
+        }
+
+.add-new-lead-button {
+    display: inline-block;
+    background-color: #333333;
+    color:  #FFFFFF;
+    padding: 10px 15px;
+    margin: 10px 0;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.add-new-lead-button:hover {
+      background-color: #555555; /* Darker green on hover */
+}
+
+form input[type="submit"] {
+    background-color: #007bff; /* Blue background for logout button */
+    color: white;
+    padding: 5px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+form input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+a.edit-link, a.delete-link {
+   padding: 5px 10px;
+    border-radius: 4px;
+    background-color: #000000;
+    color: white; /* White text for readability */
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+a.edit-link:hover, a.delete-link:hover {
+    background-color: #555555; /* Darker black on hover */
+}
+a.edit-link {
+     background-color: #000000;  /* Yellow background for edit */
+}
+
+a.edit-link:hover {
+    background-color: #555555;
+}
+
+a.delete-link {
+   background-color: #000000; /* Red background for delete */
+}
+
+a.delete-link:hover {
+   background-color: #555555; 
+}
+
+a.customer-id {
+    background-color: rgba(255, 182, 193, 0.3);  /* Different color for customer ID links */
+    color: #000000;
+    padding: 5px 10px;
+    text-decoration: none;
+    border-radius: 8px;
+    display: inline-block;
+    margin: 2px;
+}
+
+a.customer-id:hover {
+   background-color: rgba(255, 182, 193, 0.5); ;
+}
+
+ /* Dashboard Block Styles */
+        .dashboard-frame .data-block:nth-child(1) {
+            background-color: rgba(255, 182, 193, 0.3); /* Light purple color for the first block */
+        }
+
+        .dashboard-frame .data-block:nth-child(2) {
+           background-color: rgba(255, 182, 193, 0.3); /* Light pink color for the second block */
+        }
+
+        .dashboard-frame .data-block:nth-child(3) {
+           background-color: rgba(255, 182, 193, 0.4); /* Peach color for the third block */
+        }
+
+        .dashboard-frame .data-block {
+            border-radius: 20px; /* Rounded corners */
+            /* Other existing styles... */
+        }
+
+        /* Table Styles to match the dashboard blocks */
+        #leadsTable {
+            width: 100%;
+            border-radius: 8px;
+            margin-top: 20px;
+            border-collapse: collapse;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow for table */
+        }
+
+        #leadsTable th, #leadsTable td {
+            text-align: left;
+            padding: 8px 15px;
+            border-bottom: 1px solid #ddd; /* Light border for table rows */
+        }
+
+        #leadsTable th {
+            background-color: #f8f9fa; /* Light grey background for table headers */
+            color: #333; /* Dark grey text color for headers */
+            font-weight: bold;
+        }
+
+        #leadsTable tr:nth-child(even) {
+            background-color: #fff; /* White background for even rows */
+        }
+
+        #leadsTable tr:nth-child(odd) {
+            background-color: #f2f2f2; /* Light grey background for odd rows */
+        }
+
+        #leadsTable tr:hover {
+            background-color: #f8f9fa; /* Light grey background on row hover */
+        }
+
+        
+    </style>
+
+</head>
+
+<body>
+    <form action="/logout" method="post">
+        <input type="submit" value="Logout">
+    </form>
+
+    <div class="container">
+        <div class="dashboard-frame" th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}">
+            <!-- Unified dashboard data block -->
+            <div class="data-block">
+                <span class="title">Total Leads 📈</span>
+                <span class="value" th:text="${totalLeads}">0</span>
+            </div>
+            <div class="data-block">
+                <span class="title">Total Amount for Won Deals ($) 💰</span>
+                <span class="value" th:text="${totalWonAmount}">0.00</span>
+            </div>
+            <div class="data-block">
+                <span class="title">Total Amount for Ongoing Deals ($) 🚀</span>
+                <span class="value" th:text="${totalOngoingAmount}">0.00</span>
+            </div>
+        </div>
+
+
+        <h1>Leads List</h1>
+        <a th:href="@{/secure/addleads}" class="add-new-lead-button">Add New Lead</a>
+        <!-- Table for Leads List -->
+        <table id="leadsTable">
+            <!-- Table Headings -->
+			<tr>
+				<th>Customer ID</th>
+				<th>Project Name</th>
+				<th>Products</th>
+				<th>Unit Price</th>
+				<th>Quantity</th>
+				<th>Total Amount</th>
+				<th>Current Stage</th>
+				<th>Actions</th>
+			</tr>
+            <!-- Table Rows -->
+            <tr th:each="lead : ${leadsList}">
+                <td ><a th:href="@{/secure/detail/{customerId}(customerId=${lead.customerId})}" th:text="${lead.customerId}" class="customer-id"></a></td>
+                <td th:text="${lead.projectName}"></td>
+                <td th:text="${lead.products}"></td>
+                <td th:text="${lead.unitPrice}"></td>
+                <td th:text="${lead.quantity}"></td>
+                <td th:text="${lead.totalAmount}"></td>
+                <td th:text="${lead.currentStage}"></td>
+                <td>
+                    <a th:href="@{/secure/leadsView/{leadsId}(leadsId=${lead.leadsId})}"class="edit-link">Edit</a> |
+                    <a th:href="@{/secure/deleteLeadsById/{leadsId}(leadsId=${lead.leadsId})}"class="delete-link">Delete</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+    
+</body>
+</html>
+

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome to the Customer Management System</title>
+    <link rel="stylesheet" type="text/css" media="all" href="../static/css/mycss.css" th:href="@{/css/mycss.css}" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .login-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 350px; /* Adjust as needed */
+        }
+        .login-section h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        p {
+            margin-bottom: 20px;
+        }
+        .logo {
+            width: 80px; /* Adjust as needed */
+            height: 80px; /* Adjust as needed */
+            margin-bottom: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px; /* Adjust as needed */
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        a {
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="login-container">
+        <img src="../static/images/bookstore.png" alt="Bookstore Logo" class="logo" th:src="@{/images/bookstore.png}"/>
+        <section class="login-section">
+            <h1>Welcome to the Customer Management System</h1>
+            <p>
+                <a th:href="@{/secure}">
+                    <button>Click Here</button>
+                </a>
+            </p>
+            
+        </section>
+    </div>
+
+   
+    </body>
+</html>
